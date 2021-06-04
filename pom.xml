@@ -36,7 +36,7 @@
 		 
 
     	<!-- Test Browser -->
-		<!-- This Parameters select where run the test [Remote ,Firefox ,Chrome ,Internet Explorer] -->
+		<!-- This Parameters select where run the test [Remote ,Firefox ,Chrome ,msedge, IE] -->
 		<browser>Chrome</browser>
 		<!-- Test Operative system [linux, mac, windows]-->
 		<os>mac</os>
@@ -136,6 +136,12 @@
 		    <groupId>commons-fileupload</groupId>
 		    <artifactId>commons-fileupload</artifactId>
 		    <version>${commons-fileupload.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.microsoft.edge</groupId>
+			<artifactId>msedge-selenium-tools-java</artifactId>
+			<version>3.141.0</version>
 		</dependency>
 		
 	</dependencies>

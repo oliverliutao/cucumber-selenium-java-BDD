@@ -107,11 +107,25 @@ And then, you are ready to run SonarQube:
 mvn clean install sonar:sonar
 ```
 
-## 7.mvn command with browser name
+## 7. switch browser drivers
+
+### run mvn test command with browser name
 
 ```bash
 mvn test -Dbrowser=firefox
 mvn test -Dbrowser=chrome
+mvn test -Dbrowser=msedge
+mvn test -Dbrowser=ie
+```
+or
+
+### update pom.xml
+
+```bash
+<browser>firefox</browser>
+<browser>chrome</browser>
+<browser>msedge</browser>
+<browser>ie</browser>
 ```
 
 ## 8.download browser drive, make sure driver compatible with your browser
@@ -119,8 +133,17 @@ mvn test -Dbrowser=chrome
 - chrome here: https://chromedriver.storage.googleapis.com/index.html
 - firefox here: https://github.com/mozilla/geckodriver/releases
 - edge here: https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
+- IE here: https://selenium-release.storage.googleapis.com/index.html
 
-download browser driver and put to folder 
-- resources/files.drivers/${os}/
+download browser driver and put to folder :
+```bash
+resources/drivers/${os}/
+```
+
+edge 
+- browser version: 91.0.864.41 
+- msedgedriver version: 90.0.818.66
+
+
 
 

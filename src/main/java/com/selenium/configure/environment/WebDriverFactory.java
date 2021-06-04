@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 
 import java.util.Locale;
 
@@ -16,7 +17,7 @@ import java.util.Locale;
  *
  */
 public class WebDriverFactory {	
-	static String resourceFolder="resources/files/software/";
+	static String resourceFolder="resources/drivers/";
     /******** Log Attribute ********/
     private static Logger log = Logger.getLogger(WebDriverFactory.class);
     
@@ -62,7 +63,7 @@ public class WebDriverFactory {
 	    	 }
 //	         driver = new ChromeDriver();
 			 ChromeOptions options = new ChromeOptions();
-			 if(headless != null && headless.toLowerCase().equalsIgnoreCase("true")) {
+			 if(headless != null && headless.equalsIgnoreCase("true")) {
 				 options.setHeadless(true);
 			 }
 			 driver = new ChromeDriver(options);
@@ -70,10 +71,24 @@ public class WebDriverFactory {
 		 }
 					        
 		 /******** The driver selected is Internet Explorer ********/        
-	     else if ("INTERNET EXPLORER".equalsIgnoreCase(browser)) {
+	     else if ("IE".equalsIgnoreCase(browser)) {
 	    	 System.setProperty("webdriver.ie.driver", resourceFolder+os+"/IEDriverServer.exe");
 			 driver = new InternetExplorerDriver();
-	     } 
+	     }
+
+		 /******** The driver selected is edge  ********/
+
+		 else if ("MSEDGE".equalsIgnoreCase(browser)) {
+			 if("WINDOWS".equalsIgnoreCase(os)){
+				 System.setProperty("webdriver.edge.driver", resourceFolder+os+"/msedgedriver.exe");
+			 }
+			 else{
+				 System.setProperty("webdriver.edge.driver", resourceFolder+os+"/msedgedriver");
+			 }
+
+	         driver = new EdgeDriver();
+		 }
+
 		 /******** The driver is not selected  ********/
 	     else {
 	    	 log.error("The Driver is not selected properly, invalid name: " + browser + ", " + os);
