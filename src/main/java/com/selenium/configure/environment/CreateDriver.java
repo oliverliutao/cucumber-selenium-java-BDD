@@ -18,7 +18,7 @@ public class CreateDriver {
     private static String browser;
     private static String os;
     private static String logLevel;
-    private static String maxInstances;
+//    private static String maxInstances;
     private static String headless;
     private static String properties = "test.properties";
     private static Properties prop = new Properties();
@@ -57,7 +57,7 @@ public class CreateDriver {
             browser = prop.getProperty("browser");
             os = prop.getProperty("os");
             logLevel = prop.getProperty("logLevel");
-            maxInstances = prop.getProperty("maxInstances");
+//            maxInstances = prop.getProperty("maxInstances");
             headless = prop.getProperty("headless");
             
         } catch (IOException e) {
@@ -65,12 +65,12 @@ public class CreateDriver {
         }
         
         /******** POM Information ********/
-        log.info("[ POM Configuration ] - OS: " + os + " | Browser: " + browser + "| maxInstances: " + maxInstances +" | headless =" + headless);
+        log.info("[ POM Configuration ] - OS: " + os + " | Browser: " + browser + " | headless =" + headless);
         log.info("[ POM Configuration ] - Logger Level: " + logLevel);
         log.info("***********************************************************************************************************");
         
         /****** Load the driver *******/
-        driver = WebDriverFactory.createNewWebDriver(browser, os, maxInstances, headless);
+        driver = WebDriverFactory.createNewWebDriver(browser, os, headless);
         
         /******** Clean Cookies, maxinize and declare Timeout on the Driver *******/
         driver.manage().deleteAllCookies();

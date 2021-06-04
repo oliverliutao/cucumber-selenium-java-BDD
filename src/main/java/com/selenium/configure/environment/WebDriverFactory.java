@@ -37,7 +37,7 @@ public class WebDriverFactory {
     }    
 	
 		
-	 public static WebDriver createNewWebDriver(String browser, String os, String maxInstances, String headless){
+	 public static WebDriver createNewWebDriver(String browser, String os, String headless){
 		 WebDriver driver;
 			
 		 /******** The driver selected is Local: Firefox  ********/    	
@@ -61,13 +61,10 @@ public class WebDriverFactory {
 	    		 System.setProperty("webdriver.chrome.driver", resourceFolder+os+"/chromedriver");        		 
 	    	 }
 //	         driver = new ChromeDriver();
-
 			 ChromeOptions options = new ChromeOptions();
 			 if(headless != null && headless.toLowerCase().equalsIgnoreCase("true")) {
 				 options.setHeadless(true);
 			 }
-
-
 			 driver = new ChromeDriver(options);
 
 		 }
