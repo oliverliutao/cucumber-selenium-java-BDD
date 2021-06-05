@@ -3,12 +3,12 @@ package com.selenium.saucelabs;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class SauceHelpers {
-	
-	/**
-	 * Add private constructor
-	 */
-	private SauceHelpers() {
-	}
+
+    /**
+     * Add private constructor
+     */
+    private SauceHelpers() {
+    }
 
     /**
      * Will generate the URI that will be used to send commands to the Se instance.
@@ -23,8 +23,8 @@ public class SauceHelpers {
         String seleniumHost = System.getenv("SELENIUM_HOST");
         if (!doNotUseSauceConnectCmdRelay && seleniumPort != null
                 && !seleniumHost.equalsIgnoreCase("ondemand.saucelabs.com")) {
-        		/********While running in CI, if Sauce Connect is running the SELENIUM_PORT env var will be set. 
-        		  use SC relay port ********/
+            /********While running in CI, if Sauce Connect is running the SELENIUM_PORT env var will be set.
+             use SC relay port ********/
             seleniumURI = String.format("@localhost:%s", seleniumPort);
 
         }
@@ -34,6 +34,7 @@ public class SauceHelpers {
     /**
      * Will generate the URI that will be used to send commands to the Se instance.
      * If SauceConnect tunnel in use it will use the SC command relay.
+     *
      * @return String formatted uri for Sauce Se commands.
      */
     public static String buildSauceUri() {
@@ -42,8 +43,9 @@ public class SauceHelpers {
 
     /**
      * Adds/updates sauce tunnel id to desired capabilities in place
+     *
      * @param desiredCapabilities desired caps
-     * @param tunnelId tunnel id
+     * @param tunnelId            tunnel id
      */
     public static void addSauceConnectTunnelId(
             DesiredCapabilities desiredCapabilities, String tunnelId) {
@@ -58,6 +60,7 @@ public class SauceHelpers {
 
     /**
      * Adds/updates sauce tunnel id to desired capabilities from env in place
+     *
      * @param desiredCapabilities desired caps
      */
     public static void addSauceConnectTunnelId(

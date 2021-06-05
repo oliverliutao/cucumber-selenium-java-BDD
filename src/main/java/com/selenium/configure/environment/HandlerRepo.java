@@ -14,23 +14,23 @@ import org.apache.log4j.Logger;
 
 
 public class HandlerRepo {
-	
-	/**
-	 * This class contains methods to download, unzip and delete the driver files needed to run the automated tests. 
-	 * @author ffgonzalez
-	 */
+
+    /**
+     * This class contains methods to download, unzip and delete the driver files needed to run the automated tests.
+     */
 
     private static final int BUFFER_SIZE = 4096;
     /******** Log Attribute ********/
     private static Logger log = Logger.getLogger(HandlerRepo.class);
-    
+
     private static HandlerRepo instance = null;
-    
-    private HandlerRepo() {    	
+
+    private HandlerRepo() {
     }
-    
+
     /**
      * Singleton pattern
+     *
      * @return a single instance
      */
     public static HandlerRepo getInstance() {
@@ -38,11 +38,11 @@ public class HandlerRepo {
             instance = new HandlerRepo();
         }
         return instance;
-    }    
+    }
 
     /**
      * Downloads a file from a URL
-     * 
+     *
      * @param fileURL: HTTP URL of the file to be downloaded
      * @param saveDir: path of the directory to save the file
      * @throws IOException
@@ -72,9 +72,9 @@ public class HandlerRepo {
             }
 
             log.info("Content-Type = " + contentType);
-           log.info("Content-Disposition = " + disposition);
-           log.info("Content-Length = " + contentLength);
-           log.info("fileName = " + fileName);
+            log.info("Content-Disposition = " + disposition);
+            log.info("Content-Length = " + contentLength);
+            log.info("fileName = " + fileName);
 
             // opens input stream from the HTTP connection
             InputStream inputStream = httpConn.getInputStream();
@@ -84,25 +84,25 @@ public class HandlerRepo {
             FileOutputStream outputStream = new FileOutputStream(saveFilePath);
 
             byte[] buffer = new byte[BUFFER_SIZE];
-            while (( bytesRead = inputStream.read(buffer)) != -1) {
-            	outputStream.write(buffer, 0, bytesRead);
-            	}
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
 
             outputStream.close();
             inputStream.close();
 
             log.info("File downloaded");
         } else {
-        	 log.info("No file to download. Server replied HTTP code: " + responseCode);
+            log.info("No file to download. Server replied HTTP code: " + responseCode);
         }
         httpConn.disconnect();
     }
 
     /**
      * Unzip it
-     * 
+     *
      * @param zipFile: input zip file
-     * @param output: zip file output folder
+     * @param output:  zip file output folder
      */
     public static void unZipIt(String zipFile, String outputFolder) {
 
@@ -140,8 +140,8 @@ public class HandlerRepo {
                 }
 
                 fos.close();
-                ze = zis.getNextEntry();              
-                
+                ze = zis.getNextEntry();
+
             }
 
             zis.closeEntry();
@@ -150,13 +150,13 @@ public class HandlerRepo {
             log.info("Done");
 
         } catch (IOException e) {
-        	log.error("unZipIt Error", e);
+            log.error("unZipIt Error", e);
         }
     }
-    
+
     /**
-     *Delete zip
-     * 
+     * Delete zip
+     *
      * @param zipFile: zip file to delete
      */
     public static void deleteZip(String zipFile) {
@@ -165,13 +165,13 @@ public class HandlerRepo {
             File file = new File(zipFile);
 
             if (file.delete()) {
-            	 log.info(file.getName() + " is deleted!");
+                log.info(file.getName() + " is deleted!");
             } else {
-            	 log.info("Delete operation is failed.");
+                log.info("Delete operation is failed.");
             }
 
         } catch (Exception e) {
-        	log.error("deleteZip Error", e);
+            log.error("deleteZip Error", e);
 
         }
     }

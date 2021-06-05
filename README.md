@@ -65,7 +65,7 @@ or
 <browser>ie</browser>
 ```
 
-## 6.download browser driver, make sure driver compatible with your browser
+## 6. Download browser driver, make sure driver compatible with your browser
 
 - chrome here: https://chromedriver.storage.googleapis.com/index.html
 - firefox here: https://github.com/mozilla/geckodriver/releases
@@ -82,5 +82,7 @@ resources/drivers/${os}/
 - msedgedriver version: 90.0.818.66
 
 
-
-
+## 7. Cucumber upgrade
+check deprecated API
+https://www.javadoc.io/doc/io.cucumber/cucumber-java/latest/index.html
+https://www.javadoc.io/doc/io.cucumber/cucumber-core/6.10.2/deprecated-list.html
