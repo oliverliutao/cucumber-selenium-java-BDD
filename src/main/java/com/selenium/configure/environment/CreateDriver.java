@@ -18,7 +18,6 @@ public class CreateDriver {
     private static String browser;
     private static String os;
     private static String logLevel;
-//    private static String maxInstances;
     private static String headless;
     private static String properties = "test.properties";
     private static Properties prop = new Properties();
@@ -57,7 +56,6 @@ public class CreateDriver {
             browser = prop.getProperty("browser");
             os = prop.getProperty("os");
             logLevel = prop.getProperty("logLevel");
-//            maxInstances = prop.getProperty("maxInstances");
             headless = prop.getProperty("headless");
             
         } catch (IOException e) {
