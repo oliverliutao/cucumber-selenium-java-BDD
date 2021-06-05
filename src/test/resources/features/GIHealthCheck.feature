@@ -24,7 +24,13 @@ Feature: GI Health Check
          "registrationNum": "SDN9999U",
          "ncd": "0",
          "licenseYears": "5 or more",
-         "previousInsurer": "Aviva Ltd."
+         "previousInsurer": "Aviva Ltd.",
+         "page2url": "https://login.aviva.com.sg/hm/home/#/addOns",
+         "page3url": "https://login.aviva.com.sg/hm/home/#/addRider",
+         "page4url": "https://login.aviva.com.sg/hm/home/#/completeQuote",
+         "page5url": "https://login.aviva.com.sg/hm/home/#/completeQuoteSummary",
+         "page6url": "https://login.aviva.com.sg/hm/home/#/purchase",
+         "paymentUrl": "https://secureacceptance.cybersource.com/payment"
       }
       """
     When I navigate to "https://login.aviva.com.sg/hm" and fill in all data
