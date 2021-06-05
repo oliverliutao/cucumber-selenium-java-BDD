@@ -49,7 +49,9 @@ public class PropertiesHandler {
      public static By getCompleteElement(String type, String key) {
          By result;
          String selector = getSelectorFromProperties(key);
-         
+
+         log.debug("selector=" + selector);
+
          switch (type) {
              case "className":
                  result = By.className(selector);

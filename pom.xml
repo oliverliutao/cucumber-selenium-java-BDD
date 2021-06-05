@@ -44,10 +44,9 @@
 		<!-- Parameter for logger level use in this order to include the right information [ALL > DEBUG > INFO > WARN > ERROR > FATAL > OFF]-->
 		<log.level>INFO</log.level>
 
-<!--		<maxInstances>1</maxInstances>-->
-
 		<headless>false</headless>
-		
+
+		<!--		<maxInstances>1</maxInstances>-->
     </properties>
  	
     <dependencies>

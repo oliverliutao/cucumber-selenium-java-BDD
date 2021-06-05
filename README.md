@@ -1,30 +1,10 @@
-# Selenium-Cucumber
+# Selenium-Cucumber BDD 
 
-[![Build Status](https://travis-ci.org/estefafdez/selenium-cucumber.svg?branch=master)](https://travis-ci.org/estefafdez/selenium-cucumber) Selenium Webdriver integration with Cucumber. 
-
-<img src="http://www.testingexcellence.com/wp-content/uploads/2016/01/selenium-and-cucumber.png" />
-_______________________________________
-
-## 1. Latest changes:
-
-- Selenium Webdriver Version: __3.141.59__ (latest version of Selenium!).
-- Gekodriver, ChromeDriver and InternetExplorerDriver updated on this project. 
-- Updated several libraries on the POM.
-- Added TravisCI.
-
-## 2. Download the project.
-
-In order to start using the project you need to create your own Fork on Github and then clone the project:
-
-```bash
-git clone https://github.com/XXXX/selenium-cucumber
-```
-
-## 3. Choose your OS, Browser and Log Level on the POM.
+## 1. Config your OS, Browser and Log Level on the POM.
 
 On the pom.xml file you can choose between:
 - Several OS: Windows, Mac, Linux.
-- Several Browsers: Chrome, Firefox, IE.
+- Several Browsers: Chrome, msedge, Firefox, IE.
 - Several log level configuration:  All, Debug, Info, Warn, Error, Fatal, Off.
 
 You just need to change the following lines:
@@ -32,7 +12,7 @@ You just need to change the following lines:
 ```bash
 <!-- Test Browser -->
 <!-- This Parameters select where run the test 
-[Remote ,Firefox ,Chrome ,Internet Explorer] -->
+[Remote ,Firefox ,Chrome ,msedge ,Internet Explorer] -->
 <browser>YOUR_BROWSER</browser>
 
 <!-- Test Operative System [linux, mac, windows]-->
@@ -44,78 +24,35 @@ You just need to change the following lines:
 <log.level>YOUR_LOG_MODE</log.level>
 ```
 
-## 4. Step Definition By Action. 
-
-On this project you can find the following set of predefined steps ordered by action already done for you. 
-The types of actions are:
-
-- Assertion Steps
-- Click Steps
-- Configuration Steps
-- Input Steps
-- JavaScript Handling Steps
-- Keyboard Steps
-- Navigation Steps
-- Progress Steps
-- Screenshot Steps
-
-If you want more information or more predefined steps to add into your project you can visit: 
+## 2. run test:
 
 ```bash
-https://github.com/selenium-cucumber/selenium-cucumber-java/blob/master/doc/canned_steps.md
+mvn clean test
 ```
 
-## 5. SonarQube included.
-
-In order to maintain the quality of your code and your project, we include SonarQube on this repository.
-You can install in two minutes using the SonarQube tutorial available here: 
-https://docs.sonarqube.org/display/SONAR/Get+Started+in+Two+Minutes
-
-Once the SonarQube platform has been installed, you're ready to install and analyse your project. First, run your local server:
-http://localhost:9000/about
-
-And then, run the project in order to check the code quality:
-
+## 3. feature file
+### to define feature and scenarios
 ```bash
-mvn clean verify sonar:sonar
+GIHealthCheck.feature
 ```
 
-## 6. Run SonarQube on a Docker easily.
+## 4. Step Definitions. 
+### manipulate browser to do actual health check actions defined here: 
+- HomeHealthCheckSteps
+- MotorHealthCheckSteps
+- TravelHealthCheckStpes
+- PAHealthCheckSteps
 
-<img src="http://i.imgur.com/e6T8aQH.png" />
 
-In case you don't want to install SonarQube on your local machine, you can run sonar remotely using <b>Docker</b>. 
-
-You have two choices to create your own Docker:
-
-1) Create a new instance on: http://labs.play-with-docker.com/. 
-It's free, easy to use and you don't need to install anything on your computer. 
-
-2) Download Docker from its official Website: https://www.docker.com/
-Download, install Docker and run everything you need. 
-
-Once you have Docker, you need to run the followings lines:
-
-```bash
-docker pull sonarqube
-docker run -d --name sonarqube -p 9000:9000 sonarqube
-```
-
-And then, you are ready to run SonarQube:
-
-```bash
-mvn clean install sonar:sonar
-```
-
-## 7. switch browser drivers
+## 5. Switch browser drivers
 
 ### run mvn test command with browser name
 
 ```bash
-mvn test -Dbrowser=firefox
-mvn test -Dbrowser=chrome
-mvn test -Dbrowser=msedge
-mvn test -Dbrowser=ie
+mvn clean test -Dbrowser=firefox
+mvn clean test -Dbrowser=chrome
+mvn clean test -Dbrowser=msedge
+mvn clean test -Dbrowser=ie
 ```
 or
 
@@ -128,7 +65,7 @@ or
 <browser>ie</browser>
 ```
 
-## 8.download browser drive, make sure driver compatible with your browser
+## 6.download browser driver, make sure driver compatible with your browser
 
 - chrome here: https://chromedriver.storage.googleapis.com/index.html
 - firefox here: https://github.com/mozilla/geckodriver/releases
@@ -140,7 +77,7 @@ download browser driver and put to folder :
 resources/drivers/${os}/
 ```
 
-edge 
+[Note]Microsoft edge compatible versions:
 - browser version: 91.0.864.41 
 - msedgedriver version: 90.0.818.66
 

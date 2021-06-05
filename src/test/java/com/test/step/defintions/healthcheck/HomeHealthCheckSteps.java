@@ -29,19 +29,26 @@ public class HomeHealthCheckSteps {
     @Given("^I navigate to \"([^\"]*)\" and fill in all data$")
     public void i_navigate_to_and_fill_in_all_data(String url) throws Exception {
         log.info("Home health check start ....");
-        driver.navigate().to(url);
 
-        By occupancyBtn = PropertiesHandler.getCompleteElement("xpath", "//body/div/div[1]/div/form/div/div[6]/div/ul/li[2]/label");
-        driver.findElement(occupancyBtn).click();
+        try {
+            driver.navigate().to(url);
 
-        By page1DewllingType = PropertiesHandler.getCompleteElement("id", "dwellingTypeRef");
-        Select opt = new Select(driver.findElement(page1DewllingType));
+            By occupancyBtn = PropertiesHandler.getCompleteElement("xpath", "//body/div/div[1]/div/form/div/div[6]/div/ul/li[2]/label");
+            driver.findElement(occupancyBtn).click();
 
-        if (opt.equals("text")) {
-            log.info("select option: " + opt + "by text");
-            opt.selectByVisibleText("Detached");
+            By page1DewllingType = PropertiesHandler.getCompleteElement("id", "dwellingTypeRef");
+            Select opt = new Select(driver.findElement(page1DewllingType));
+
+            if (opt.equals("text")) {
+                log.info("select option: " + opt + "by text");
+                opt.selectByVisibleText("Detached");
+            }
+
+        }catch(Exception e) {
+            log.error("exception =" + e);
+        }finally {
+            driver.quit();
         }
-
 
     }
 
