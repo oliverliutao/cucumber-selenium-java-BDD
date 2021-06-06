@@ -29,6 +29,19 @@ You just need to change the following lines:
 ```bash
 mvn clean test
 ```
+### test specific scenario, e.g. travel
+
+in RunCukesTest file, @CucumberOptions config
+
+```bash
+tags = "@travel" 
+```
+or 
+```bash
+tags = "not @home"
+```
+
+### define scenarios' tag in feature file 
 
 ## 3. feature file
 ### to define feature and scenarios

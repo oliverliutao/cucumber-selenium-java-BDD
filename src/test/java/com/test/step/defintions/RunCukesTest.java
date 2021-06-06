@@ -6,8 +6,10 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
+        //        tags = "not @home",
         plugin = {"html:target/cucumberHtmlReport"},
         features = "classpath:features"
+
 )
 
 public class RunCukesTest {

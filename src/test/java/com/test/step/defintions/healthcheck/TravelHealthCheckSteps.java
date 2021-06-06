@@ -18,19 +18,20 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 
+
 /**
- * This class contains methods to do HOME portal health check
+ * This class contains methods to do TRAVEL portal health check
  */
 
-public class HomeHealthCheckSteps {
+public class TravelHealthCheckSteps {
     WebDriver driver;
     JsonNode testData;
 
 
     /******** Log Attribute ********/
-    private static Logger log = Logger.getLogger(HomeHealthCheckSteps.class);
+    private static Logger log = Logger.getLogger(TravelHealthCheckSteps.class);
 
-    public HomeHealthCheckSteps() {
+    public TravelHealthCheckSteps() {
         driver = Hooks.getDriver();
     }
 
@@ -39,16 +40,16 @@ public class HomeHealthCheckSteps {
 //        ObjectMapper objectMapper = new ObjectMapper();
 //        return objectMapper.readTree(docString);
 //    }
-
-    @Given("^I prepare test data for Home portal$")
+//
+    @Given("^I prepare test data for Travel portal$")
     public void i_start_test(String docString) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        testData =  objectMapper.readTree(docString);
+        testData = objectMapper.readTree(docString);
 
-        log.info("Home health check start ....testData=" + testData);
+        log.info("Travel health check start ....testData=" + testData);
     }
 
-    @When("^I navigate to Home \"([^\"]*)\" and key in all data$")
+    @When("^I navigate to Travel \"([^\"]*)\" and key in all data$")
     public void i_navigate_to_and_fill_in_all_data(String url) throws Exception {
 
         try {
@@ -60,20 +61,21 @@ public class HomeHealthCheckSteps {
 
 
             //// page 1 ////
-            String dwellType = testData.get("dwellType").asText();
-            new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(By.id("dwellingTypeRef")));
-            // find element by id, must wait for element present, otherwise will hit "no such element" error
-            WebElement selectDwellingType = driver.findElement(By.id("dwellingTypeRef"));
-            Select selectDT = new Select(selectDwellingType);
-            new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.id("dwellingTypeRef")));
-            selectDT.selectByVisibleText(dwellType);
+            List<WebElement> allSpans = driver.findElements(By.tagName("span"));
+            for (WebElement e : allSpans) {
+                if(e.getText().equalsIgnoreCase("Annual")) {
+                    fluentWaitUtils(e);
+                    e.click();
+                    log.info(e.getText());
+                    break;
+                }
+            }
 
             // find all buttons, then target by text "choose plan"
             List<WebElement> allbuttons = driver.findElements(By.tagName("button"));
             for (WebElement e : allbuttons) {
                 if(e.getText().equalsIgnoreCase("choose plan")) {
                     fluentWaitUtils(e);
-//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
                     e.click();
                     log.info(e.getText());
                     break;
@@ -90,7 +92,6 @@ public class HomeHealthCheckSteps {
             for (WebElement e : allPremiumBtn) {
                 if(e.getText().equalsIgnoreCase("select")) {
                     fluentWaitUtils(e);
-//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
                     e.click();
                     log.info(e.getText());
                     break;
@@ -105,7 +106,6 @@ public class HomeHealthCheckSteps {
             for (WebElement e : allPage3Btns) {
                 if(e.getText().equalsIgnoreCase("go to personal details")) {
                     fluentWaitUtils(e);
-//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
                     e.click();
                     log.info(e.getText());
                     break;
@@ -117,35 +117,35 @@ public class HomeHealthCheckSteps {
             new WebDriverWait(driver, 30).until(ExpectedConditions.urlToBe(testData.get("page4url").asText()));
             new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
 
+            driver.findElement(By.name("identificationNo")).sendKeys(testData.get("nric").asText());
+            new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
+
             WebElement salutation = driver.findElement(By.id("salutation"));
             Select selectSL = new Select(salutation);
             new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.id("salutation")));
             selectSL.selectByVisibleText(testData.get("salutation").asText());
 
+
             driver.findElement(By.name("familyName")).sendKeys(testData.get("familyName").asText());
             driver.findElement(By.name("givenName")).sendKeys(testData.get("givenName").asText());
+
+            driver.findElement(By.cssSelector("input[placeholder='DD']")).sendKeys(testData.get("dobDate").asText());
+            driver.findElement(By.cssSelector("input[placeholder='MM']")).sendKeys(testData.get("dobMonth").asText());
+            driver.findElement(By.cssSelector("input[placeholder='YYYY']")).sendKeys(testData.get("dobYear").asText());
+
 
             List<WebElement> allPage4Spans = driver.findElements(By.tagName("span"));
             for (WebElement e : allPage4Spans) {
                 if(e.getText().equalsIgnoreCase("male")) {
                     new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
                     new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
-
                     fluentWaitUtils(e);
-
                     e.click();
                     log.info(e.getText());
                     break;
                 }
             }
 
-            driver.findElement(By.name("identificationNo")).sendKeys(testData.get("nric").asText());
-
-            new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
-
-            driver.findElement(By.cssSelector("input[placeholder='DD']")).sendKeys(testData.get("dobDate").asText());
-            driver.findElement(By.cssSelector("input[placeholder='MM']")).sendKeys(testData.get("dobMonth").asText());
-            driver.findElement(By.cssSelector("input[placeholder='YYYY']")).sendKeys(testData.get("dobYear").asText());
 
             driver.findElement(By.id("mobile")).sendKeys(testData.get("phoneNumber").asText());
 
@@ -159,10 +159,7 @@ public class HomeHealthCheckSteps {
             for (WebElement e : allPage4TagA) {
                 if(e.getText().equalsIgnoreCase("Find my address")) {
                     new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
-//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
-
                     fluentWaitUtils(e);
-
                     e.click();
                     log.info(e.getText());
                     break;
@@ -177,21 +174,11 @@ public class HomeHealthCheckSteps {
                 driver.findElement(By.id("addressLine4")).sendKeys(testData.get("street").asText());
             }
 
-            for (WebElement e : allPage4Spans) {
-                if(e.getText().equalsIgnoreCase("No")) {
-                    fluentWaitUtils(e);
-//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
-                    e.click();
-                    log.info(e.getText());
-                    break;
-                }
-            }
 
             List<WebElement> allPage4Btns = driver.findElements(By.tagName("button"));
             for (WebElement e : allPage4Btns) {
                 if(e.getText().equalsIgnoreCase("Go to summary & payment")) {
                     fluentWaitUtils(e);
-//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
                     e.click();
                     log.info(e.getText());
                     break;
@@ -256,15 +243,15 @@ public class HomeHealthCheckSteps {
     }
 
 
-    @Then("^Home portal reach payment page$")
+    @Then("^Travel portal reach payment page$")
     public void i_am_able_to_reach_payment_page() throws Exception {
 
         try{
             String currentUrl = driver.getCurrentUrl();
             log.info("current url = " + currentUrl);
-            Assert.assertTrue("Home portal NOT reach payment page, please CHECK again", currentUrl.equalsIgnoreCase(testData.get("paymentUrl").asText()));
+            Assert.assertTrue("Travel portal NOT reach payment page, please CHECK again", currentUrl.equalsIgnoreCase(testData.get("paymentUrl").asText()));
 
-            log.info("Home health check end .... PASS ");
+            log.info("Travel health check end .... PASS ");
             //        Thread.sleep(10000);
 
             driver.quit();
