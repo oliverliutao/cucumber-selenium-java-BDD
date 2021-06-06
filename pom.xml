@@ -36,15 +36,16 @@
     	<!-- Test Browser -->
 		<!-- This Parameters select where run the test [Remote ,Firefox ,Chrome ,msedge, IE] -->
 		<browser>Chrome</browser>
+
+		<!-- this parameter for chrome browser only-->
+		<headless>false</headless>
+
 		<!-- Test Operative system [linux, mac, windows]-->
 		<os>mac</os>
 		<!-- Log Mode section -->
 		<!-- Parameter for logger level use in this order to include the right information [ALL > DEBUG > INFO > WARN > ERROR > FATAL > OFF]-->
 		<log.level>INFO</log.level>
 
-		<headless>false</headless>
-
-		<!--		<maxInstances>1</maxInstances>-->
     </properties>
  	
     <dependencies>

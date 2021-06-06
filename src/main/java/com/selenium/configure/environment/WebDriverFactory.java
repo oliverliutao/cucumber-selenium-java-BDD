@@ -64,6 +64,14 @@ public class WebDriverFactory {
             if (headless != null && headless.equalsIgnoreCase("true")) {
                 options.setHeadless(true);
             }
+//            options.addArguments("--window-size=1920,1080");
+//            options.addArguments("--disable-gpu");
+//            options.addArguments("--disable-extensions");
+//            options.setExperimentalOption("useAutomationExtension", false);
+//            options.addArguments("--proxy-server='direct://'");
+//            options.addArguments("--proxy-bypass-list=*");
+//            options.addArguments("--start-maximized");
+//            options.addArguments("--headless");
             driver = new ChromeDriver(options);
 
         }
