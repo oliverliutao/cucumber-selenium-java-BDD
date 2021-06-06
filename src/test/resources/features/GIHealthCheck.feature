@@ -11,6 +11,7 @@ Feature: GI Health Check
          "givenName": "Yeeeeeee",
          "email": "tao_liu@aviva-asia.com",
          "postCode": "190002",
+         "salutation": "Mr",
          "phoneNumber": "99999999",
          "dwellType": "Detached",
          "dobDate": "08",

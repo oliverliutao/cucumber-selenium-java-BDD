@@ -15,7 +15,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.junit.Assert;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
@@ -55,7 +55,6 @@ public class HomeHealthCheckSteps {
         try {
             driver.navigate().to(url);
 
-//            Thread.sleep(6000);
 
             By spinner = By.cssSelector("div[ng-show='showSpinner']");
             new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
@@ -66,15 +65,15 @@ public class HomeHealthCheckSteps {
             new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(By.id("dwellingTypeRef")));
             // find element by id, must wait for element present, otherwise will hit "no such element" error
             WebElement selectDwellingType = driver.findElement(By.id("dwellingTypeRef"));
-            Select selectDC = new Select(selectDwellingType);
+            Select selectDT = new Select(selectDwellingType);
             new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.id("dwellingTypeRef")));
-            selectDC.selectByVisibleText(dwellType);
+            selectDT.selectByVisibleText(dwellType);
 
             // find all buttons, then target by text "choose plan"
             List<WebElement> allbuttons = driver.findElements(By.tagName("button"));
             for (WebElement e : allbuttons) {
-                log.info(e.getText());
                 if(e.getText().equalsIgnoreCase("choose plan")) {
+                    log.info(e.getText());
                     new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
                     e.click();
                     break;
@@ -89,8 +88,8 @@ public class HomeHealthCheckSteps {
             new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("tbody")));
             List<WebElement> allPremiumBtn = driver.findElements(By.tagName("a"));
             for (WebElement e : allPremiumBtn) {
-                log.info(e.getText());
                 if(e.getText().equalsIgnoreCase("select")) {
+                    log.info(e.getText());
                     new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
                     e.click();
                     break;
@@ -103,8 +102,8 @@ public class HomeHealthCheckSteps {
             new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
             List<WebElement> allPage3Btns = driver.findElements(By.tagName("a"));
             for (WebElement e : allPage3Btns) {
-                log.info(e.getText());
                 if(e.getText().equalsIgnoreCase("go to personal details")) {
+                    log.info(e.getText());
                     new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
                     e.click();
                     break;
@@ -116,17 +115,129 @@ public class HomeHealthCheckSteps {
             new WebDriverWait(driver, 20).until(ExpectedConditions.urlToBe(testData.get("page4url").asText()));
             new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
 
+            WebElement salutation = driver.findElement(By.id("salutation"));
+            Select selectSL = new Select(salutation);
+            new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.id("salutation")));
+            selectSL.selectByVisibleText(testData.get("salutation").asText());
 
+            driver.findElement(By.name("familyName")).sendKeys(testData.get("familyName").asText());
+            driver.findElement(By.name("givenName")).sendKeys(testData.get("givenName").asText());
 
+            List<WebElement> allPage4Spans = driver.findElements(By.tagName("span"));
+            for (WebElement e : allPage4Spans) {
+                if(e.getText().equalsIgnoreCase("male")) {
+                    log.info(e.getText());
+                    new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
+                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
+                    e.click();
+                    break;
+                }
+            }
 
-//            Thread.sleep(20000);
+            driver.findElement(By.name("identificationNo")).sendKeys(testData.get("nric").asText());
+
+            new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
+
+            driver.findElement(By.cssSelector("input[placeholder='DD']")).sendKeys(testData.get("dobDate").asText());
+            driver.findElement(By.cssSelector("input[placeholder='MM']")).sendKeys(testData.get("dobMonth").asText());
+            driver.findElement(By.cssSelector("input[placeholder='YYYY']")).sendKeys(testData.get("dobYear").asText());
+
+            driver.findElement(By.id("mobile")).sendKeys(testData.get("phoneNumber").asText());
+
+            driver.findElement(By.id("email")).sendKeys(testData.get("email").asText());
+
+            new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
+
+            driver.findElement(By.id("postalCode")).sendKeys(testData.get("postCode").asText());
+
+            List<WebElement> allPage4TagA = driver.findElements(By.tagName("a"));
+            for (WebElement e : allPage4TagA) {
+                if(e.getText().equalsIgnoreCase("Find my address")) {
+                    log.info(e.getText());
+                    new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
+                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
+                    e.click();
+                    break;
+                }
+            }
+
+            new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
+
+            if(driver.findElement(By.id("addressLine1")).getText().length() == 0) {
+                driver.findElement(By.id("addressLine1")).sendKeys(testData.get("block").asText());
+                driver.findElement(By.id("addressLine2")).sendKeys(testData.get("street").asText());
+                driver.findElement(By.id("addressLine4")).sendKeys(testData.get("street").asText());
+            }
+
+            for (WebElement e : allPage4Spans) {
+                if(e.getText().equalsIgnoreCase("No")) {
+                    log.info(e.getText());
+                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
+                    e.click();
+                    break;
+                }
+            }
+
+            List<WebElement> allPage4Btns = driver.findElements(By.tagName("button"));
+            for (WebElement e : allPage4Btns) {
+                if(e.getText().equalsIgnoreCase("Go to summary & payment")) {
+                    log.info(e.getText());
+                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
+                    e.click();
+                    break;
+                }
+            }
+
+            log.info("========= loading page 5 =============");
+            //// page 5 ////
+            new WebDriverWait(driver, 30).until(ExpectedConditions.urlToBe(testData.get("page5url").asText()));
+            new WebDriverWait(driver, 30).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
+
+            List<WebElement> allPage5Btns = driver.findElements(By.tagName("a"));
+            for (WebElement e : allPage5Btns) {
+                if(e.getText().equalsIgnoreCase("I agree - buy now")) {
+                    log.info(e.getText());
+                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
+                    e.click();
+                    break;
+                }
+            }
+
+            log.info("========= loading page 6 =============");
+            //// page 5 ////
+            new WebDriverWait(driver, 30).until(ExpectedConditions.urlToBe(testData.get("page6url").asText()));
+            new WebDriverWait(driver, 30).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
+
+            List<WebElement> allPage6H3 = driver.findElements(By.tagName("h3"));
+            for (WebElement e : allPage6H3) {
+                if(e.getText().equalsIgnoreCase("Pay with Visa or MasterCard")) {
+                    log.info(e.getText());
+                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
+                    e.click();
+                    break;
+                }
+            }
+
+            new WebDriverWait(driver, 30).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
+            List<WebElement> allPage6Btns = driver.findElements(By.tagName("a"));
+            for (WebElement e : allPage6Btns) {
+                if(e.getText().equalsIgnoreCase("Proceed to payment")) {
+                    log.info(e.getText());
+                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
+                    e.click();
+                    break;
+                }
+            }
+
+            log.info("========= loading payment page =============");
+            //// payment page ////
+            new WebDriverWait(driver, 30).until(ExpectedConditions.urlToBe(testData.get("paymentUrl").asText()));
+
+//            Thread.sleep(200000);
 
         } catch (Exception e) {
-            log.error("exception =" + e);
+            log.error("health check >> exception =" + e);
         }
-//        finally {
-//            driver.quit();
-//        }
 
     }
 
@@ -134,9 +245,21 @@ public class HomeHealthCheckSteps {
     @Then("^I am able to reach payment page$")
     public void i_am_able_to_reach_payment_page() throws Exception {
 
-        log.info("Home health check end ....");
-//        Thread.sleep(10000);
-        driver.quit();
+        try{
+            String currentUrl = driver.getCurrentUrl();
+            log.info("current url = " + currentUrl);
+            Assert.assertTrue("Home portal NOT reach payment page, please CHECK again", currentUrl.equalsIgnoreCase(testData.get("paymentUrl").asText()));
+
+            log.info("Home health check end .... PASS ");
+            //        Thread.sleep(10000);
+
+            driver.quit();
+        }catch (Exception e) {
+            log.error("check payment page >> exception =" + e);
+        }finally {
+            driver.quit();
+        }
+
     }
 
 }
