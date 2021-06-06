@@ -10,11 +10,10 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 import org.junit.Assert;
 import java.io.IOException;
 import java.time.Duration;
@@ -73,9 +72,10 @@ public class HomeHealthCheckSteps {
             List<WebElement> allbuttons = driver.findElements(By.tagName("button"));
             for (WebElement e : allbuttons) {
                 if(e.getText().equalsIgnoreCase("choose plan")) {
-                    log.info(e.getText());
-                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
+                    fluentWaitUtils(e);
+//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
                     e.click();
+                    log.info(e.getText());
                     break;
                 }
             }
@@ -89,9 +89,10 @@ public class HomeHealthCheckSteps {
             List<WebElement> allPremiumBtn = driver.findElements(By.tagName("a"));
             for (WebElement e : allPremiumBtn) {
                 if(e.getText().equalsIgnoreCase("select")) {
-                    log.info(e.getText());
-                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
+                    fluentWaitUtils(e);
+//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
                     e.click();
+                    log.info(e.getText());
                     break;
                 }
             }
@@ -103,9 +104,10 @@ public class HomeHealthCheckSteps {
             List<WebElement> allPage3Btns = driver.findElements(By.tagName("a"));
             for (WebElement e : allPage3Btns) {
                 if(e.getText().equalsIgnoreCase("go to personal details")) {
-                    log.info(e.getText());
-                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
+                    fluentWaitUtils(e);
+//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
                     e.click();
+                    log.info(e.getText());
                     break;
                 }
             }
@@ -126,10 +128,18 @@ public class HomeHealthCheckSteps {
             List<WebElement> allPage4Spans = driver.findElements(By.tagName("span"));
             for (WebElement e : allPage4Spans) {
                 if(e.getText().equalsIgnoreCase("male")) {
-                    log.info(e.getText());
                     new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
-                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
+//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
+
+                    fluentWaitUtils(e);
+//                    Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+//                            .withTimeout(Duration.ofSeconds(30))
+//                            .pollingEvery(Duration.ofSeconds(5))
+//                            .ignoring(ElementClickInterceptedException.class);
+//                    wait.until(ExpectedConditions.elementToBeClickable(e));
+
                     e.click();
+                    log.info(e.getText());
                     break;
                 }
             }
@@ -153,10 +163,18 @@ public class HomeHealthCheckSteps {
             List<WebElement> allPage4TagA = driver.findElements(By.tagName("a"));
             for (WebElement e : allPage4TagA) {
                 if(e.getText().equalsIgnoreCase("Find my address")) {
-                    log.info(e.getText());
                     new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
-                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
+//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
+
+                    fluentWaitUtils(e);
+//                    Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+//                            .withTimeout(Duration.ofSeconds(30))
+//                            .pollingEvery(Duration.ofSeconds(5))
+//                            .ignoring(ElementClickInterceptedException.class);
+//                    wait.until(ExpectedConditions.elementToBeClickable(e));
+
                     e.click();
+                    log.info(e.getText());
                     break;
                 }
             }
@@ -171,9 +189,10 @@ public class HomeHealthCheckSteps {
 
             for (WebElement e : allPage4Spans) {
                 if(e.getText().equalsIgnoreCase("No")) {
-                    log.info(e.getText());
-                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
+                    fluentWaitUtils(e);
+//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
                     e.click();
+                    log.info(e.getText());
                     break;
                 }
             }
@@ -181,9 +200,10 @@ public class HomeHealthCheckSteps {
             List<WebElement> allPage4Btns = driver.findElements(By.tagName("button"));
             for (WebElement e : allPage4Btns) {
                 if(e.getText().equalsIgnoreCase("Go to summary & payment")) {
-                    log.info(e.getText());
-                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
+                    fluentWaitUtils(e);
+//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
                     e.click();
+                    log.info(e.getText());
                     break;
                 }
             }
@@ -196,9 +216,10 @@ public class HomeHealthCheckSteps {
             List<WebElement> allPage5Btns = driver.findElements(By.tagName("a"));
             for (WebElement e : allPage5Btns) {
                 if(e.getText().equalsIgnoreCase("I agree - buy now")) {
-                    log.info(e.getText());
-                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
+                    fluentWaitUtils(e);
+//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
                     e.click();
+                    log.info(e.getText());
                     break;
                 }
             }
@@ -211,9 +232,10 @@ public class HomeHealthCheckSteps {
             List<WebElement> allPage6H3 = driver.findElements(By.tagName("h3"));
             for (WebElement e : allPage6H3) {
                 if(e.getText().equalsIgnoreCase("Pay with Visa or MasterCard")) {
-                    log.info(e.getText());
-                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
+                    fluentWaitUtils(e);
+//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
                     e.click();
+                    log.info(e.getText());
                     break;
                 }
             }
@@ -222,9 +244,11 @@ public class HomeHealthCheckSteps {
             List<WebElement> allPage6Btns = driver.findElements(By.tagName("a"));
             for (WebElement e : allPage6Btns) {
                 if(e.getText().equalsIgnoreCase("Proceed to payment")) {
-                    log.info(e.getText());
-                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
+
+                    fluentWaitUtils(e);
+//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
                     e.click();
+                    log.info(e.getText());
                     break;
                 }
             }
@@ -259,7 +283,15 @@ public class HomeHealthCheckSteps {
         }finally {
             driver.quit();
         }
+    }
 
+    private void fluentWaitUtils(WebElement e){
+
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+                .withTimeout(Duration.ofSeconds(30))
+                .pollingEvery(Duration.ofSeconds(2))
+                .ignoring(ElementClickInterceptedException.class);
+        wait.until(ExpectedConditions.elementToBeClickable(e));
     }
 
 }
