@@ -8,15 +8,14 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementClickInterceptedException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 import org.junit.Assert;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This class contains methods to do HOME portal health check
@@ -55,27 +54,25 @@ public class HomeHealthCheckSteps {
             driver.navigate().to(url);
 
 
-            By spinner = By.cssSelector("div[ng-show='showSpinner']");
-            new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
-
+            waitSpinnerInvisible();
 
             //// page 1 ////
-            String dwellType = testData.get("dwellType").asText();
-            new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(By.id("dwellingTypeRef")));
+
+            By dtselector = By.id("dwellingTypeRef");
+            new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(dtselector));
             // find element by id, must wait for element present, otherwise will hit "no such element" error
-            WebElement selectDwellingType = driver.findElement(By.id("dwellingTypeRef"));
-            Select selectDT = new Select(selectDwellingType);
-            new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.id("dwellingTypeRef")));
-            selectDT.selectByVisibleText(dwellType);
+            Select selectDT = new Select(driver.findElement(dtselector));
+            new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfAllElementsLocatedBy(dtselector));
+            selectDT.selectByVisibleText(testData.get("dwellType").asText());
+
 
             // find all buttons, then target by text "choose plan"
             List<WebElement> allbuttons = driver.findElements(By.tagName("button"));
             for (WebElement e : allbuttons) {
                 if(e.getText().equalsIgnoreCase("choose plan")) {
-                    fluentWaitUtils(e);
-//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
-                    e.click();
+                    fluentWaitClickable(e);
                     log.info(e.getText());
+                    e.click();
                     break;
                 }
             }
@@ -84,15 +81,15 @@ public class HomeHealthCheckSteps {
 
             //// page 2 ////
             new WebDriverWait(driver, 30).until(ExpectedConditions.urlToBe(testData.get("page2url").asText()));
-            new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
+            waitSpinnerInvisible();
             new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("tbody")));
             List<WebElement> allPremiumBtn = driver.findElements(By.tagName("a"));
             for (WebElement e : allPremiumBtn) {
                 if(e.getText().equalsIgnoreCase("select")) {
-                    fluentWaitUtils(e);
+                    fluentWaitClickable(e);
 //                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
-                    e.click();
                     log.info(e.getText());
+                    e.click();
                     break;
                 }
             }
@@ -100,14 +97,14 @@ public class HomeHealthCheckSteps {
             log.info("========= loading page 3 =============");
             //// page 3 ////
             new WebDriverWait(driver, 30).until(ExpectedConditions.urlToBe(testData.get("page3url").asText()));
-            new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
+            waitSpinnerInvisible();
             List<WebElement> allPage3Btns = driver.findElements(By.tagName("a"));
             for (WebElement e : allPage3Btns) {
                 if(e.getText().equalsIgnoreCase("go to personal details")) {
-                    fluentWaitUtils(e);
+                    fluentWaitClickable(e);
 //                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
-                    e.click();
                     log.info(e.getText());
+                    e.click();
                     break;
                 }
             }
@@ -115,7 +112,19 @@ public class HomeHealthCheckSteps {
             log.info("========= loading page 4 =============");
             //// page 4 ////
             new WebDriverWait(driver, 30).until(ExpectedConditions.urlToBe(testData.get("page4url").asText()));
-            new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
+            waitSpinnerInvisible();
+
+            List<WebElement> allPage4Spans = driver.findElements(By.tagName("span"));
+            for (WebElement e : allPage4Spans) {
+                if(e.getText().equalsIgnoreCase("male")) {
+//                    waitSpinnerInvisible();
+                    fluentWaitClickable(e);
+//                    driver.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
+                    log.info(e.getText());
+                    e.click();
+                    break;
+                }
+            }
 
             WebElement salutation = driver.findElement(By.id("salutation"));
             Select selectSL = new Select(salutation);
@@ -125,23 +134,21 @@ public class HomeHealthCheckSteps {
             driver.findElement(By.name("familyName")).sendKeys(testData.get("familyName").asText());
             driver.findElement(By.name("givenName")).sendKeys(testData.get("givenName").asText());
 
-            List<WebElement> allPage4Spans = driver.findElements(By.tagName("span"));
-            for (WebElement e : allPage4Spans) {
-                if(e.getText().equalsIgnoreCase("male")) {
-                    new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
-                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
-
-                    fluentWaitUtils(e);
-
-                    e.click();
-                    log.info(e.getText());
-                    break;
-                }
-            }
+//            List<WebElement> allPage4Spans = driver.findElements(By.tagName("span"));
+//            for (WebElement e : allPage4Spans) {
+//                if(e.getText().equalsIgnoreCase("male")) {
+//                    waitSpinnerInvisible();
+//                    fluentWaitClickable(e);
+//                    driver.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
+//                    log.info(e.getText());
+//                    e.click();
+//                    break;
+//                }
+//            }
 
             driver.findElement(By.name("identificationNo")).sendKeys(testData.get("nric").asText());
 
-            new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
+            waitSpinnerInvisible();
 
             driver.findElement(By.cssSelector("input[placeholder='DD']")).sendKeys(testData.get("dobDate").asText());
             driver.findElement(By.cssSelector("input[placeholder='MM']")).sendKeys(testData.get("dobMonth").asText());
@@ -151,26 +158,22 @@ public class HomeHealthCheckSteps {
 
             driver.findElement(By.id("email")).sendKeys(testData.get("email").asText());
 
-            new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
-
+            waitSpinnerInvisible();
             driver.findElement(By.id("postalCode")).sendKeys(testData.get("postCode").asText());
 
             List<WebElement> allPage4TagA = driver.findElements(By.tagName("a"));
             for (WebElement e : allPage4TagA) {
                 if(e.getText().equalsIgnoreCase("Find my address")) {
-                    new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
-//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
-
-                    fluentWaitUtils(e);
-
-                    e.click();
+                    waitSpinnerInvisible();
+                    fluentWaitClickable(e);
                     log.info(e.getText());
+                    e.click();
+
                     break;
                 }
             }
 
-            new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
-
+            waitSpinnerInvisible();
             if(driver.findElement(By.id("addressLine1")).getText().length() == 0) {
                 driver.findElement(By.id("addressLine1")).sendKeys(testData.get("block").asText());
                 driver.findElement(By.id("addressLine2")).sendKeys(testData.get("street").asText());
@@ -179,10 +182,9 @@ public class HomeHealthCheckSteps {
 
             for (WebElement e : allPage4Spans) {
                 if(e.getText().equalsIgnoreCase("No")) {
-                    fluentWaitUtils(e);
-//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
-                    e.click();
+                    fluentWaitClickable(e);
                     log.info(e.getText());
+                    e.click();
                     break;
                 }
             }
@@ -190,10 +192,9 @@ public class HomeHealthCheckSteps {
             List<WebElement> allPage4Btns = driver.findElements(By.tagName("button"));
             for (WebElement e : allPage4Btns) {
                 if(e.getText().equalsIgnoreCase("Go to summary & payment")) {
-                    fluentWaitUtils(e);
-//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
-                    e.click();
+                    fluentWaitClickable(e);
                     log.info(e.getText());
+                    e.click();
                     break;
                 }
             }
@@ -201,44 +202,42 @@ public class HomeHealthCheckSteps {
             log.info("========= loading page 5 =============");
             //// page 5 ////
             new WebDriverWait(driver, 30).until(ExpectedConditions.urlToBe(testData.get("page5url").asText()));
-            new WebDriverWait(driver, 30).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
-
+            waitSpinnerInvisible();
             List<WebElement> allPage5Btns = driver.findElements(By.tagName("a"));
             for (WebElement e : allPage5Btns) {
                 if(e.getText().equalsIgnoreCase("I agree - buy now")) {
-                    fluentWaitUtils(e);
-//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
-                    e.click();
+                    fluentWaitClickable(e);
                     log.info(e.getText());
+                    e.click();
                     break;
                 }
             }
 
             log.info("========= loading page 6 =============");
-            //// page 5 ////
+            //// page 6 ////
             new WebDriverWait(driver, 30).until(ExpectedConditions.urlToBe(testData.get("page6url").asText()));
-            new WebDriverWait(driver, 30).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
-
+            waitSpinnerInvisible();
             List<WebElement> allPage6H3 = driver.findElements(By.tagName("h3"));
             for (WebElement e : allPage6H3) {
                 if(e.getText().equalsIgnoreCase("Pay with Visa or MasterCard")) {
-                    fluentWaitUtils(e);
-//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
-                    e.click();
+                    fluentWaitClickable(e);
                     log.info(e.getText());
+                    e.click();
                     break;
                 }
             }
 
-//            new WebDriverWait(driver, 30).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
+
             List<WebElement> allPage6Btns = driver.findElements(By.tagName("a"));
             for (WebElement e : allPage6Btns) {
                 if(e.getText().equalsIgnoreCase("Proceed to payment")) {
 
-                    Thread.sleep(10000);
-//                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
-                    e.click();
+                    JavascriptExecutor js = (JavascriptExecutor) driver;
+//                    js.executeScript("window.scrollBy(0,800)");
+                    js.executeScript("arguments[0].scrollIntoView();", e);
+                    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                     log.info(e.getText());
+                    e.click();
                     break;
                 }
             }
@@ -275,13 +274,19 @@ public class HomeHealthCheckSteps {
         }
     }
 
-    private void fluentWaitUtils(WebElement e){
+    private void fluentWaitClickable(WebElement e){
 
         Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
                 .withTimeout(Duration.ofSeconds(20))
                 .pollingEvery(Duration.ofSeconds(2))
                 .ignoring(ElementClickInterceptedException.class);
         wait.until(ExpectedConditions.elementToBeClickable(e));
+    }
+
+    private void waitSpinnerInvisible() {
+
+        By spinner = By.cssSelector("div[ng-show='showSpinner']");
+        new WebDriverWait(driver, 20).until(ExpectedConditions.invisibilityOfElementLocated(spinner));
     }
 
 }

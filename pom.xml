@@ -20,7 +20,7 @@
 		<junit.version>4.13.1</junit.version>
 		<log4j.version>1.2.17</log4j.version>
 		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
-		<maven-surefire-plugin.version>2.20.1</maven-surefire-plugin.version> 
+		<maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
 		<httpclient.version>4.5.5</httpclient.version>
 		<ant.version>1.10.9</ant.version>
 		<sonar-maven-plugin.version>4.5.7</sonar-maven-plugin.version>
@@ -28,6 +28,9 @@
 		<guava.version>30.0-jre</guava.version>
 		<commons-fileupload.version>1.4</commons-fileupload.version>
 		<jackson-databind-version>2.9.9.3</jackson-databind-version>
+
+		<!-- parallel execution, here by default Up to 4 threads are running simultaneously-->
+		<thread-count-total>4</thread-count-total>
 		 
 
     	<!-- Test Browser -->
@@ -196,6 +199,11 @@
 					<version>${maven-surefire-plugin.version}</version>
 					<configuration>
 					 	<encoding>UTF-8</encoding>
+						<parallel>methods</parallel>
+						<threadCount>${thread-count-total}</threadCount>
+						<perCoreThreadCount>false</perCoreThreadCount>
+<!--						<threadCountMethods>1</threadCountMethods>-->
+<!--						<useUnlimitedThreads>true</useUnlimitedThreads>-->
 					</configuration>
 			</plugin>
 			

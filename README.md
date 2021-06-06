@@ -41,13 +41,24 @@ or
 tags = "not @home"
 ```
 
-### define scenarios' tag in feature file 
+### define scenarios' tag in feature file, e.g. @travel
 
-## 3. feature file
-### to define feature and scenarios
+### Parallel Execution, by default 4 thread in total, 
+### currently have 4 feature files parallel running, can modify from pom:
+
 ```bash
-GIHealthCheck.feature
+		<!-- parallel execution, here by default Up to 4 threads are running simultaneously-->
+		<thread-count-total>4</thread-count-total>
 ```
+
+## 3. feature files
+### to define feature and scenarios
+
+- GIHome.feature
+- GIMotor.feature
+- GITravel.feature
+- GIPA.feature
+
 
 ## 4. Step Definitions. 
 ### manipulate browser to do actual health check actions defined here: 
