@@ -101,8 +101,8 @@ public class TravelHealthCheckSteps {
             for (WebElement e : allPage3Btns) {
                 if(e.getText().equalsIgnoreCase("go to personal details")) {
                     fluentWaitUtils(e);
-                    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-//                    Thread.sleep(6000);
+//                    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+                    Thread.sleep(5000);
                     log.info(e.getText());
                     e.click();
                     break;
@@ -157,6 +157,7 @@ public class TravelHealthCheckSteps {
                 if(e.getText().equalsIgnoreCase("Find my address")) {
                     waitSpinnerInvisible();
                     fluentWaitUtils(e);
+                    Thread.sleep(5000);
                     log.info(e.getText());
                     e.click();
                     break;

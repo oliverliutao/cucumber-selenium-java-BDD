@@ -166,9 +166,9 @@ public class HomeHealthCheckSteps {
                 if(e.getText().equalsIgnoreCase("Find my address")) {
                     waitSpinnerInvisible();
                     fluentWaitClickable(e);
+                    Thread.sleep(5000);
                     log.info(e.getText());
                     e.click();
-
                     break;
                 }
             }
