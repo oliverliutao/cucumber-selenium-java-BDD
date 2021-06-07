@@ -6,7 +6,7 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        tags = "not @motor",
+//        tags = "not @motor",
         plugin = {"html:target/cucumberHtmlReport"},
         features = "classpath:features"
 

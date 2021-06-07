@@ -93,6 +93,7 @@ public class MotorHealthCheckSteps {
                     fluentWaitUtils(e);
                     driver.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                     break;
                 }
@@ -108,6 +109,7 @@ public class MotorHealthCheckSteps {
                 if(e.getText().equalsIgnoreCase("0")) {
                     fluentWaitUtils(e);
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                     break;
                 }
@@ -143,6 +145,7 @@ public class MotorHealthCheckSteps {
 //                    new WebDriverWait(driver, 30).until(ExpectedConditions.invisibilityOf(driver.findElement(By.id("loadingSpinner"))));
 
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
 
                     break;
@@ -163,6 +166,7 @@ public class MotorHealthCheckSteps {
                 if(e.getText().equalsIgnoreCase("select")) {
                     fluentWaitUtils(e);
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                     break;
                 }
@@ -180,6 +184,7 @@ public class MotorHealthCheckSteps {
                 if(cbclass.contains("a-checkbox__label")) {
                     fluentWaitUtils(cb);
                     log.info("1st checkbox");
+                    actionProvider.moveToElement(cb).build().perform();
                     cb.click();
                     break;
                 }
@@ -205,6 +210,7 @@ public class MotorHealthCheckSteps {
                 if(e.getText().equalsIgnoreCase("Go to personal details")) {
                     fluentWaitUtils(e);
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                     break;
                 }
@@ -251,6 +257,7 @@ public class MotorHealthCheckSteps {
                 if(e.getText().equalsIgnoreCase("No")) {
                     fluentWaitUtils(e);
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                     break;
                 }
@@ -261,6 +268,7 @@ public class MotorHealthCheckSteps {
                 if(e.getText().equalsIgnoreCase("Go to summary and payment")) {
                     fluentWaitUtils(e);
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                     break;
                 }
@@ -280,6 +288,7 @@ public class MotorHealthCheckSteps {
                     fluentWaitUtils(e);
 //                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                     break;
                 }
@@ -294,6 +303,7 @@ public class MotorHealthCheckSteps {
 
             WebElement page6Payment = driver.findElement(By.cssSelector("label[for='payment_C']"));
             fluentWaitUtils(page6Payment);
+            actionProvider.moveToElement(page6Payment).build().perform();
             page6Payment.click();
 
             List<WebElement> allPage6Btns = driver.findElements(By.tagName("a"));
@@ -302,6 +312,7 @@ public class MotorHealthCheckSteps {
 //                    Thread.sleep(10000);
                     driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                     break;
                 }

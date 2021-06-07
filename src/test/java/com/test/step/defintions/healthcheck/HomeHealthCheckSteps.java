@@ -56,6 +56,8 @@ public class HomeHealthCheckSteps {
 
             waitSpinnerInvisible();
 
+            Actions actionProvider = new Actions(driver);
+
             //// page 1 ////
 
             By dtselector = By.id("dwellingTypeRef");
@@ -72,6 +74,7 @@ public class HomeHealthCheckSteps {
                 if(e.getText().equalsIgnoreCase("choose plan")) {
                     fluentWaitClickable(e);
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                     break;
                 }
@@ -89,6 +92,7 @@ public class HomeHealthCheckSteps {
                     fluentWaitClickable(e);
 //                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                     break;
                 }
@@ -104,6 +108,7 @@ public class HomeHealthCheckSteps {
                     fluentWaitClickable(e);
 //                    new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(e));
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                     break;
                 }
@@ -121,6 +126,7 @@ public class HomeHealthCheckSteps {
                     fluentWaitClickable(e);
 //                    driver.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                     break;
                 }
@@ -168,6 +174,7 @@ public class HomeHealthCheckSteps {
                     fluentWaitClickable(e);
                     Thread.sleep(5000);
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                     break;
                 }
@@ -184,6 +191,7 @@ public class HomeHealthCheckSteps {
                 if(e.getText().equalsIgnoreCase("No")) {
                     fluentWaitClickable(e);
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                     break;
                 }
@@ -193,7 +201,9 @@ public class HomeHealthCheckSteps {
             for (WebElement e : allPage4Btns) {
                 if(e.getText().equalsIgnoreCase("Go to summary & payment")) {
                     fluentWaitClickable(e);
+                    Thread.sleep(5000);
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                     break;
                 }
@@ -208,6 +218,7 @@ public class HomeHealthCheckSteps {
                 if(e.getText().equalsIgnoreCase("I agree - buy now")) {
                     fluentWaitClickable(e);
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                     break;
                 }
@@ -237,6 +248,7 @@ public class HomeHealthCheckSteps {
                     js.executeScript("arguments[0].scrollIntoView();", e);
                     driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                     break;
                 }

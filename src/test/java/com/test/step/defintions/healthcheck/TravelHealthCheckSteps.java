@@ -9,6 +9,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 import org.junit.Assert;
 import java.io.IOException;
@@ -54,13 +55,19 @@ public class TravelHealthCheckSteps {
             driver.navigate().to(url);
 
             waitSpinnerInvisible();
+            Thread.sleep(3000);
+
+            Actions actionProvider = new Actions(driver);
+
 
             //// page 1 ////
             List<WebElement> allSpans = driver.findElements(By.tagName("span"));
             for (WebElement e : allSpans) {
                 if(e.getText().equalsIgnoreCase("Annual")) {
                     fluentWaitUtils(e);
+//                    Thread.sleep(6000);
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                     break;
                 }
@@ -71,6 +78,8 @@ public class TravelHealthCheckSteps {
             for (WebElement e : allbuttons) {
                 if(e.getText().equalsIgnoreCase("choose plan")) {
                     fluentWaitUtils(e);
+//                    Thread.sleep(6000);
+                    actionProvider.moveToElement(e).build().perform();
                     log.info(e.getText());
                     e.click();
                     break;
@@ -88,6 +97,7 @@ public class TravelHealthCheckSteps {
                 if(e.getText().equalsIgnoreCase("select")) {
                     fluentWaitUtils(e);
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                     break;
                 }
@@ -102,7 +112,8 @@ public class TravelHealthCheckSteps {
                 if(e.getText().equalsIgnoreCase("go to personal details")) {
                     fluentWaitUtils(e);
 //                    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-                    Thread.sleep(5000);
+//                    Thread.sleep(5000);
+                    actionProvider.moveToElement(e).build().perform();
                     log.info(e.getText());
                     e.click();
                     break;
@@ -137,6 +148,7 @@ public class TravelHealthCheckSteps {
                     waitSpinnerInvisible();
                     fluentWaitUtils(e);
                     driver.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
+                    actionProvider.moveToElement(e).build().perform();
                     log.info(e.getText());
                     e.click();
                     break;
@@ -158,6 +170,7 @@ public class TravelHealthCheckSteps {
                     waitSpinnerInvisible();
                     fluentWaitUtils(e);
                     Thread.sleep(5000);
+                    actionProvider.moveToElement(e).build().perform();
                     log.info(e.getText());
                     e.click();
                     break;
@@ -172,12 +185,14 @@ public class TravelHealthCheckSteps {
                 driver.findElement(By.id("addressLine4")).sendKeys(testData.get("street").asText());
             }
 
+            Thread.sleep(5000);
 
             List<WebElement> allPage4Btns = driver.findElements(By.tagName("button"));
             for (WebElement e : allPage4Btns) {
                 if(e.getText().equalsIgnoreCase("Go to summary & payment")) {
                     fluentWaitUtils(e);
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                     break;
                 }
@@ -194,6 +209,7 @@ public class TravelHealthCheckSteps {
                 if(e.getText().equalsIgnoreCase("I agree - buy now")) {
                     fluentWaitUtils(e);
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                     break;
                 }
@@ -220,11 +236,14 @@ public class TravelHealthCheckSteps {
                     JavascriptExecutor js = (JavascriptExecutor) driver;
                     js.executeScript("arguments[0].scrollIntoView();", e);
                     driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-//                    Thread.sleep(6000);
+                    Thread.sleep(6000);
                     log.info(e.getText());
+                    actionProvider.moveToElement(e).build().perform();
                     e.click();
                 }
             }
+
+            Thread.sleep(6000);
 
             log.info("========= loading payment page =============");
             //// payment page ////
