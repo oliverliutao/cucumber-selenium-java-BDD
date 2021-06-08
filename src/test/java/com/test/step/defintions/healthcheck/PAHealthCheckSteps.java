@@ -57,11 +57,18 @@ public class PAHealthCheckSteps {
 
             //// page 1 ////
             log.info("========= page 1 loaded =============");
+            Thread.sleep(6000);
+            WebElement start = driver.findElement(By.cssSelector("div[ng-app='paDeclaration']"));
+            new WebDriverWait(driver,20).until(ExpectedConditions.attributeToBe(start.findElement(By.xpath("..")),"class",""));
+
+
             driver.findElement(By.cssSelector("input[type='radio']")).click();
 
             driver.findElement(By.cssSelector("img[src='library/images/buttons/btn-continue.gif']")).click();
 
             log.info("========= loading page 2 =============");
+            WebElement getQuoteAPage = driver.findElement(By.cssSelector("form[name='getQuoteAForm']"));
+            new WebDriverWait(driver,20).until(ExpectedConditions.attributeToBe(getQuoteAPage.findElement(By.xpath("..")).findElement(By.xpath("..")),"class",""));
 
             By salutSelector = By.name("salutation");
             WebElement salutation = driver.findElement(salutSelector);
@@ -101,11 +108,13 @@ public class PAHealthCheckSteps {
             actionProvider.moveToElement(getquoteBtn).build().perform();
             getquoteBtn.click();
 
-            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+//            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
             log.info("========= loading page 2-1 =============");
 
-            WebElement getQuoteBForm = driver.findElement(By.name("getQuoteBForm"));
+            WebElement getQuoteBForm = driver.findElement(By.cssSelector("form[name='getQuoteBForm']"));
+            new WebDriverWait(driver,20).until(ExpectedConditions.attributeToBe(getQuoteBForm.findElement(By.xpath("..")),"class",""));
+
             WebElement getQuoteBFormRowBlankBTN = getQuoteBForm.findElement(By.cssSelector("div[class='formRowBlankBTN']"));
             WebElement proceedBtn = getQuoteBFormRowBlankBTN.findElement(By.cssSelector("img[src='library/images/buttons/btn-proceed.gif']"));
             fluentWaitUtils(proceedBtn);
@@ -115,13 +124,14 @@ public class PAHealthCheckSteps {
 
 
             log.info("========= loading page 3 =============");
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            WebElement completeQuoteForm = driver.findElement(By.cssSelector("form[name='completeQuoteForm']"));
+            new WebDriverWait(driver,20).until(ExpectedConditions.attributeToBe(completeQuoteForm.findElement(By.xpath("..")),"class",""));
+
 
             driver.findElement(By.name("dob")).click();
             By monthSelector = By.cssSelector("select[class='ui-datepicker-month']");
             WebElement  datepickerMonth = driver.findElement(monthSelector);
             Select selectMonth = new Select(datepickerMonth);
-//            new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfAllElementsLocatedBy(monthSelector));
             selectMonth.selectByVisibleText(testData.get("dobMonthCal").asText());
             log.info("datepicker-month");
 
@@ -137,7 +147,6 @@ public class PAHealthCheckSteps {
 
             List<WebElement> tdsDate = driver.findElements(By.cssSelector("td[data-month='3']"));
             for (WebElement e : tdsDate) {
-//                log.info(e.findElement(By.tagName("a")).getText());
                 if(e.findElement(By.tagName("a")).getText().equalsIgnoreCase("8")) {
                     log.info("datepicker-date");
                     e.click();
@@ -182,7 +191,6 @@ public class PAHealthCheckSteps {
             selectPF.selectByVisibleText(testData.get("annual").asText());
             log.info("paymentFrequency");
 
-            WebElement completeQuoteForm = driver.findElement(By.name("completeQuoteForm"));
             WebElement formRowBlankBTN = completeQuoteForm.findElement(By.cssSelector("div[class='formRowBlankBTN']"));
             WebElement page3ProceedBtn = formRowBlankBTN.findElement(By.cssSelector("img[src='library/images/buttons/btn-proceed.gif']"));
             executor.executeScript("arguments[0].scrollIntoView(true);", page3ProceedBtn);
@@ -191,8 +199,9 @@ public class PAHealthCheckSteps {
 
             log.info("========= loading page 4 =============");
 
-//            Thread.sleep(25000);
-            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+            WebElement paSummary = driver.findElement(By.cssSelector("div[ng-app='paSummary']"));
+            new WebDriverWait(driver,20).until(ExpectedConditions.attributeToBe(paSummary.findElement(By.xpath("..")),"class",""));
+
 
             driver.findElement(By.id("tandc")).click();
 
@@ -204,8 +213,15 @@ public class PAHealthCheckSteps {
 
             log.info("========= loading page 5 =============");
 
-//            Thread.sleep(25000);
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            List<WebElement> navImgs = driver.findElements(By.cssSelector("img[class='SubNav']"));
+            for (WebElement e: navImgs) {
+                if(e.getAttribute("src").equalsIgnoreCase("library/images/header/purchase.gif")){
+                   WebElement puPage =  e.findElement(By.xpath("..")).findElement(By.xpath("..")).findElement(By.xpath(".."));
+                   new WebDriverWait(driver,20).until(ExpectedConditions.attributeToBe(puPage,"class",""));
+                   break;
+                }
+            }
 
             driver.findElement(By.name("paymentMode")).click();
 
@@ -214,9 +230,6 @@ public class PAHealthCheckSteps {
             page5PaynowBtn.click();
 
             log.info("========= loading payment page =============");
-
-//            Thread.sleep(6000);
-//            driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
             new WebDriverWait(driver, 30).until(ExpectedConditions.urlToBe(testData.get("paymentUrl").asText()));
 
