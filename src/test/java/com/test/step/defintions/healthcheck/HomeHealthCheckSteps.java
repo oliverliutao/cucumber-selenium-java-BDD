@@ -59,7 +59,7 @@ public class HomeHealthCheckSteps {
             Actions actionProvider = new Actions(driver);
 
             //// page 1 ////
-
+            log.info("========= page 1 loaded =============");
             By dtselector = By.id("dwellingTypeRef");
             new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(dtselector));
             // find element by id, must wait for element present, otherwise will hit "no such element" error

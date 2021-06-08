@@ -61,6 +61,7 @@ public class TravelHealthCheckSteps {
 
 
             //// page 1 ////
+            log.info("========= page 1 loaded =============");
             List<WebElement> allSpans = driver.findElements(By.tagName("span"));
             for (WebElement e : allSpans) {
                 if(e.getText().equalsIgnoreCase("Annual")) {

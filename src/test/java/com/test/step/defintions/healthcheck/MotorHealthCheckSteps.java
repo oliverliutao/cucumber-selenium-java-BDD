@@ -57,11 +57,14 @@ public class MotorHealthCheckSteps {
 
             waitSpinnerInvisible();
 
+            Actions actionProvider = new Actions(driver);
+
             //// page 1 ////
+            log.info("========= page 1 loaded =============");
             WebElement makeModel = driver.findElement(By.id("make_and_model"));
             makeModel.sendKeys(testData.get("makeModelStartWith").asText());
 
-            Actions actionProvider = new Actions(driver);
+
             actionProvider.moveToElement(makeModel).build().perform();
             actionProvider.moveByOffset(0, -50).build().perform();
 //            Thread.sleep(500);
@@ -353,8 +356,8 @@ public class MotorHealthCheckSteps {
 
         Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
                 .withTimeout(Duration.ofSeconds(20))
-                .pollingEvery(Duration.ofSeconds(2));
-//                .ignoring(ElementClickInterceptedException.class);
+                .pollingEvery(Duration.ofSeconds(2))
+                .ignoring(ElementClickInterceptedException.class);
         wait.until(ExpectedConditions.elementToBeClickable(e));
     }
 
