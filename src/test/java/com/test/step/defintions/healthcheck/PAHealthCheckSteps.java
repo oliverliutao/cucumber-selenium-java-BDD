@@ -101,7 +101,7 @@ public class PAHealthCheckSteps {
             actionProvider.moveToElement(getquoteBtn).build().perform();
             getquoteBtn.click();
 
-            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
             log.info("========= loading page 2-1 =============");
 
@@ -191,7 +191,8 @@ public class PAHealthCheckSteps {
 
             log.info("========= loading page 4 =============");
 
-            Thread.sleep(25000);
+//            Thread.sleep(25000);
+            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
             driver.findElement(By.id("tandc")).click();
 
@@ -203,7 +204,8 @@ public class PAHealthCheckSteps {
 
             log.info("========= loading page 5 =============");
 
-            Thread.sleep(25000);
+//            Thread.sleep(25000);
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
             driver.findElement(By.name("paymentMode")).click();
 
@@ -213,7 +215,8 @@ public class PAHealthCheckSteps {
 
             log.info("========= loading payment page =============");
 
-            Thread.sleep(6000);
+//            Thread.sleep(6000);
+//            driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
             new WebDriverWait(driver, 30).until(ExpectedConditions.urlToBe(testData.get("paymentUrl").asText()));
 
@@ -247,8 +250,8 @@ public class PAHealthCheckSteps {
     private void fluentWaitUtils(WebElement e){
 
         Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-                .withTimeout(Duration.ofSeconds(40))
-                .pollingEvery(Duration.ofSeconds(2))
+                .withTimeout(Duration.ofSeconds(30))
+                .pollingEvery(Duration.ofSeconds(1))
                 .ignoring(ElementClickInterceptedException.class);
         wait.until(ExpectedConditions.elementToBeClickable(e));
     }
