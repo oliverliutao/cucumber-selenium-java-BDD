@@ -27,7 +27,7 @@
 		<jsoup.version>1.13.1</jsoup.version>
 		<guava.version>30.0-jre</guava.version>
 		<commons-fileupload.version>1.4</commons-fileupload.version>
-		<jackson-databind-version>2.9.9.3</jackson-databind-version>
+		<jackson-databind-version>2.13.2</jackson-databind-version>
 
 		<!-- parallel execution, here by default Up to 4 threads are running simultaneously-->
 		<thread-count-total>4</thread-count-total>
