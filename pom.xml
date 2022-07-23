@@ -13,7 +13,7 @@
 		<!-- Versions section -->
 		<java.version>1.8</java.version>
 		<cucumber-core-version>6.10.4</cucumber-core-version>
-		<selenium.version>3.141.59</selenium.version>
+		<selenium.version>4.0.0</selenium.version>
 		<cucumber-java.version>6.10.4</cucumber-java.version>
 		<cucumber-junit.version>6.10.4</cucumber-junit.version>
 		<cucumber-picocontainer-version>6.10.4</cucumber-picocontainer-version>
